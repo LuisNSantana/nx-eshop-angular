@@ -1,0 +1,43 @@
+//base
+@import './base/colors.scss';
+@import './base/fonts.scss';
+@import './base/mixins.scss';
+@import '~normalize.css/normalize.css';
+
+
+//bootstrap
+//@import '../node_modules/bootstrap/scss/bootstrap.scss';
+
+//ngprime
+@import '~primeicons/primeicons.css';
+@import '~primeflex/primeflex.css';
+@import "~primeng/resources/themes/saga-blue/theme.css";
+@import '~primeng/resources/primeng.min.css';
+@import '~animate.css/animate.css';
+
+
+//configuration
+@import './base/configuration.scss';
+
+//components
+@import './apps/shop/pages/home-page.scss';
+@import './apps/shop/pages/product-list.scss';
+
+//shared
+@import './apps/shop/shared/header.scss';
+@import './apps/shop/shared/footer.scss';
+@import './apps/shop/shared/nav.scss';
+
+//librerias
+@import './libs/ui/ui.scss';
+@import './libs/products/product.scss';
+
+//LibsUser
+@import './libs/users/users.scss';
+
+.container {
+  width: 1200px;
+  padding: 15px;
+  margin:0 auto;
+  background-color: var(--surface-100);
+}

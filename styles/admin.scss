@@ -1,0 +1,29 @@
+//base
+@import '~normalize.css/normalize.css';
+@import './base/colors.scss';
+@import './base/fonts.scss';
+@import './base/mixins.scss';
+
+
+//bootstrap
+//@import '../node_modules/bootstrap/scss/bootstrap.scss';
+
+//ngprime
+@import '~primeicons/primeicons.css';
+@import '~primeflex/primeflex.css';
+@import "~primeng/resources/themes/saga-blue/theme.css";
+@import '~primeng/resources/primeng.min.css';
+@import './base/configuration.scss';
+
+//Shared
+@import './apps/admin/shell.scss';
+@import './apps/admin/dashboard.scss';
+
+
+//librerias
+@import './libs/ui/ui.scss';
+
+//LibsUser
+@import './libs/users/users.scss';
+
+

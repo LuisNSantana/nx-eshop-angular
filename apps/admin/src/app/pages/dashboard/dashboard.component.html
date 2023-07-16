@@ -1,0 +1,59 @@
+<div class="admin-page">
+    <p-card header="Dashboard" subheader="Latest Updates">
+        <div class="grid">
+            <div class="col-3">
+                <p-card styleClass="d-product">
+                    <div class="d-item">
+                        <div>
+                            <i class="pi pi-briefcase"></i><br />
+                            <span class="name">Products</span>
+                        </div>
+                        <span class="number">{{totalProducts}}</span>
+
+                    </div>
+                </p-card>
+            </div>
+
+            <div class="col-3">
+                <p-card styleClass="d-users">
+                    <div class="d-item">
+                        <div>
+                            <i class="pi pi-users"></i><br>
+                            <span class="name">Users</span>
+                        </div>
+                        <span class="number">{{totalUsers}}</span>
+
+                    </div>
+                </p-card>
+            </div>
+
+
+            <div class="col-3">
+                <p-card styleClass="d-totalsales">
+                    <div class="d-item">
+                        <div>
+                            <i class="pi pi-dollar"></i><br>
+                            <span class="name">TotalSales</span>
+                        </div>
+                            <span class="number">{{ totalSales | currency}}</span>
+                        
+                    </div>
+                </p-card>
+            </div>
+            <div class="col-3">
+                <p-card styleClass="d-orders">
+                    <div class="d-item">
+                        <div>
+                            <i class="pi pi-shopping-cart"></i><br>
+                            <span class="name">Order</span>
+                        </div>
+                            <span class="number">{{totalOrders}}</span>
+                        
+                    </div>
+                </p-card>
+            </div>
+            
+        </div>
+    </p-card>
+
+</div>

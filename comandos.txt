@@ -1,0 +1,23 @@
+crear una nueva app:
+nx generate @nrwl/angular:app nombreApp
+
+levantar una app en un port especifico:
+nx serve nombreApp --port (el puerto que quieras ej: 4100)
+
+crear un componente con nx y verificar si estas en la app correcta:
+nx g c nombreComponente --project=nombreApp --dry-run (siempre angular:schematics)
+crear un componente con nx: 
+nx g c nombreComponente --project=nombreApp
+
+crear una libreria: npx nx g @nrwl/workspace:lib ui
+
+anadir esto en el eslint.json:  "no-empty-function":"off",
+                                "@typescript-eslint/no-empty-function":"off"
+
+Modificar el index.ts de la libreria para exportar el module en las apps
+El path siempre lo vas a encopntrar en el tsconfig.base.json
+
+
+PARA ARRANCAR EL PROYECTO = nx serve (nombreDelProyecto)
+
+INSTALAR LIBRERIA CON TODOS LOS PAISES ACTUALIZADOS = npm i i18n-iso-countries

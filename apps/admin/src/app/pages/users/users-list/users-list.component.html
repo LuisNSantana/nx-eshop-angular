@@ -1,0 +1,66 @@
+<div class="admin-page">
+    <p-card header="Users" subheader="List of all users">
+        <div class="grid">
+            <div class="col-12">
+                <p-toolbar>
+                    <div class="p-toolbar-group-left">
+                        <p-button label="New" icon="pi pi-plus" styleClass="p-button-success"
+                            routerLink="form"></p-button>
+                    </div>
+                </p-toolbar>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-12">
+
+                <p-table [value]="users" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-gridlines">
+
+
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon> </th>
+                            <th>Email</th>
+                            <th>isAdmin</th>
+                            <th>Country </th>
+                            <th></th>
+
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-user>
+                        <tr>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>
+                                <p-tag *ngIf="user.isAdmin" icon="pi pi-check" severity="success"
+                                    [rounded]="true"></p-tag>
+                                <p-tag *ngIf="!user.isAdmin" icon="pi pi-times" severity="warning"
+                                    [rounded]="true"></p-tag>
+                            </td>
+                            <td>
+
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                                    style="width: 20px" [class]="'flag flag-za'" />
+                                <span class="ml-1 vertical-align-middle">{{ getCountryName(user.country) }}</span>
+                            </td>
+
+                            <td>
+                                <p-button (click)="deleteUser(user.id)" styleClass="p-button-danger mr-2"
+                                    icon="pi pi-trash"></p-button>
+                                <p-button (click)="updateUser(user.id)" styleClass="p-button-success"
+                                    icon="pi pi-pencil"></p-button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="5">No customers found.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </p-card>
+
+</div>
+
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

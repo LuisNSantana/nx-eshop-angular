@@ -1,14 +1,10 @@
-import { Component } from "@angular/core";
-import { RouterModule } from "@angular/router";
-import { NxWelcomeComponent } from "./nx-welcome.component";
+import { Component } from '@angular/core';
 
 @Component({
-  standalone: true,
-  imports: [NxWelcomeComponent, RouterModule],
-  selector: "belctech-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"],
+    selector: 'ngshop-root',
+    templateUrl: './app.component.html',
+    
 })
 export class AppComponent {
-  title = "ngshop";
+    title = 'ngshop';
 }

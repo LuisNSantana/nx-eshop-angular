@@ -1,0 +1,38 @@
+.banner{
+    height: 280px;
+    width: 100%;
+    background-color: #D7EFFB;
+    border-radius: 15px;
+    &-image{
+        padding: 15px 50px 0 0;
+        text-align: right;
+    }
+    &-text{
+        margin-top: 50px;
+        color: var(--surface-700);
+    }
+    &-button{
+       
+        background-color: var(--surface-0);
+        color: $primary-color;
+        border-radius: 13px;
+        height: 50px;
+        
+        &:enabled:hover{
+            background-color: var(--surface-0);
+            color: $primary-color;
+            border: 0;
+        }
+    }
+    h1{
+        margin: 0;
+        font-size: 3em;
+        font-weight: 400;
+    }
+
+    h2{
+        margin: 0 ;
+        font-size: 2em;
+        font-weight: 300;
+    }
+}
