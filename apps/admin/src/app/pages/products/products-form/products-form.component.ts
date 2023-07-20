@@ -54,10 +54,7 @@ export class ProductsFormComponent implements OnInit {
         });
     }
 
-    
-
     private _addProduct(productData: FormData) {
-        
         console.log('que manda productData: ', productData);
         this.productsService.createProduct(productData).subscribe({
             next: (product) => this.messageService.add({ severity: 'success', summary: 'Success', detail: `Product ${product.name} is created` }),
@@ -67,17 +64,14 @@ export class ProductsFormComponent implements OnInit {
     }
 
     private _updateProduct(productData: FormData) {
-        console.log('que id: ',this.currentProductId);
+        console.log('que id: ', this.currentProductId);
         //console.log('que manda productData: ', productData);
         this.productsService.updateProduct(productData, this.currentProductId).subscribe({
-            
             next: (product) => this.messageService.add({ severity: 'success', summary: 'Success', detail: `Product ${product.name} is updated` }),
             error: () => this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Product could not be updated' }),
-            complete: () => setTimeout(() => this.router.navigate(['/products']), 1500),
-            
+            complete: () => setTimeout(() => this.router.navigate(['/products']), 1500)
         });
     }
-
 
     private _checkEditMode() {
         this.route.params.subscribe((params) => {
@@ -118,7 +112,6 @@ export class ProductsFormComponent implements OnInit {
             this._addProduct(productFormData);
         }
     }
-
 
     onCancle() {
         return '';

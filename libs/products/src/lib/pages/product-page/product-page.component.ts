@@ -3,6 +3,7 @@ import { ProductsService } from '../../services/products.service';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../models/product';
 import { Subject, takeUntil } from 'rxjs';
+import { CartService } from '@belctech/orders';
 
 @Component({
     templateUrl: './product-page.component.html',
@@ -11,8 +12,8 @@ import { Subject, takeUntil } from 'rxjs';
 export class ProductPageComponent implements OnInit, OnDestroy {
     product: Product;
     endSubs$: Subject<any> = new Subject();
-    quantity: number;
-    constructor(private productService: ProductsService, private route: ActivatedRoute) {}
+    quantity = 1;
+    constructor(private productService: ProductsService, private route: ActivatedRoute, private cartService: CartService) {}
 
     ngOnInit(): void {
         //q: por que se usa subscribe?
@@ -24,15 +25,14 @@ export class ProductPageComponent implements OnInit, OnDestroy {
                 this._getProduct(params['productid']);
             }
         });
-
     }
     ngOnDestroy(): void {
-      this.endSubs$.complete();
-      console.log('destroy');
-  }
+        this.endSubs$.complete();
+        console.log('destroy');
+    }
 
     private _getProduct(id: string) {
-      console.log('get product', id);
+        console.log('get product', id);
         this.productService
             .getProduct(id)
             .pipe(takeUntil(this.endSubs$))
@@ -40,9 +40,11 @@ export class ProductPageComponent implements OnInit, OnDestroy {
                 this.product = product;
             });
     }
-    addProuductToCart() {
-      console.log('add product to cart');
+    addProductToCart() {
+        const cartItem = {
+            productId: this.product.id,
+            quantity: this.quantity
+        };
+        this.cartService.setCartItem(cartItem);
     }
-
-   
 }

@@ -4,34 +4,31 @@
             <ui-gallery [images]="product.images"></ui-gallery>
         </div>
         <div class="col-6 product">
-            <h2 class="product-name">{{product.name}}</h2>
+            <h2 class="product-name">{{ product.name }}</h2>
             <p class="product-desc">
-                {{product.description}}
+                {{ product.description }}
             </p>
             <div class="product-rating">
                 <p-rating [(ngModel)]="product.rating" [cancel]="false" [disabled]="true"></p-rating>
             </div>
             <div class="product-price">
-                {{product.price | currency:'USD':true:'1.2-2'}}
-                <span class="price-before">{{product.price + 18 | currency:'USD':true:'1.2-2'}}</span>
+                {{ product.price | currency : 'USD' : true : '1.2-2' }}
+                <span class="price-before">{{ product.price + 18 | currency : 'USD' : true : '1.2-2' }}</span>
             </div>
             <div class="product-quantity">
-                <label for="quantity">Quantity</label>
-                <p-inputNumber [(ngModel)]="quantity" mode="decimal" [showButtons]="true" inputId="quantity" [min]="0"
-                    [max]="20"> </p-inputNumber>
+                <div class="field col-12 md-3 p-0">
+                    <label for="quantity">Quantity</label>
+                    <p-inputNumber [(ngModel)]="quantity" mode="decimal" [showButtons]="true" inputId="quantity" [min]="0" [max]="100"> </p-inputNumber>
+                </div>
             </div>
 
             <div class="product-actions">
                 <div class="col-12 field md-3 p-0">
-                    <button pButton pRipple type="button" label="Buy Now" class="button-rounded mr-2">
-                    </button>
-                    <button pButton pRipple type="button" label="Add to Cart" class="button-rounded mr-2"
-                        (onClick)="addProductToCart()">
-                    </button>
+                    <button pButton pRipple type="button" label="Buy Now" class="button-rounded mr-2"></button>
+                    <button pButton pRipple type="button" label="Add to Cart" class="button-rounded mr-2" (click)="addProductToCart()"></button>
                 </div>
             </div>
         </div>
-
     </div>
     <div class="grid product-rich-desc">
         <div class="col-12">

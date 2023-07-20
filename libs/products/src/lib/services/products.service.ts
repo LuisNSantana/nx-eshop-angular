@@ -10,10 +10,11 @@ import { Product } from '../models/product';
 })
 export class ProductsService {
     apiURLProducts = environment.apiURL + 'products';
+    apiURLGalleryImage = environment.apiURL + 'gallery-images';
 
     constructor(private http: HttpClient) {}
 
-    getProducts(categoriesFilter?:string[]): Observable<Product[]> {
+    getProducts(categoriesFilter?: string[]): Observable<Product[]> {
         let params = new HttpParams();
         if (categoriesFilter) {
             params = params.append('categories', categoriesFilter.join(','));
@@ -32,6 +33,11 @@ export class ProductsService {
     updateProduct(productData: FormData, productid: string): Observable<Product> {
         console.log('desde el servicio product', productData);
         return this.http.put<Product>(`${this.apiURLProducts}/${productid}`, productData);
+    }
+
+    updateProductGallery(images: FormData, productid: string): Observable<Product> {
+        console.log('desde el servicio product', images);
+        return this.http.put<Product>(`${this.apiURLGalleryImage}/${productid}`, images);
     }
 
     deleteProduct(productId: string): Observable<any> {

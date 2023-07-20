@@ -42,6 +42,7 @@ import { TagModule } from 'primeng/tag';
 import { InputMaskModule } from 'primeng/inputmask';
 import { RatingModule } from 'primeng/rating';
 import { FieldsetModule } from 'primeng/fieldset';
+import { FileUploadModule } from 'primeng/fileupload';
 
 const UX_MODULE = [
     CardModule,
@@ -61,7 +62,8 @@ const UX_MODULE = [
     InputMaskModule,
     RatingModule,
     FieldsetModule,
-    UsersModule
+    UsersModule,
+    FileUploadModule
 ];
 
 @NgModule({
