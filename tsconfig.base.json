@@ -19,7 +19,7 @@
             "@belctech/products": ["libs/products/src/index.ts"],
             "@belctech/ui": ["libs/ui/src/index.ts"],
             "@belctech/users": ["libs/users/src/index.ts"],
-            "@env/*": ["environments/*"],
+            "@env/*": ["environments/*"]
         }
     },
     "exclude": ["node_modules", "tmp"]

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Order, OrdersService } from '@belctech/orders';
+import { Order, OrdersService, ORDER_STATUS } from '@belctech/orders';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ORDER_STATUS } from '../order.constants';
 import { MessageService } from 'primeng/api';
 
 @Component({

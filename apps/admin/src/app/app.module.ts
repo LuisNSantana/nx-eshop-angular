@@ -43,6 +43,8 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { RatingModule } from 'primeng/rating';
 import { FieldsetModule } from 'primeng/fieldset';
 import { FileUploadModule } from 'primeng/fileupload';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 const UX_MODULE = [
     CardModule,
@@ -90,7 +92,9 @@ const UX_MODULE = [
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
-        UsersModule
+        UsersModule,
+        StoreModule.forRoot({}),
+        EffectsModule.forRoot([]),
     ],
     providers: [CategoriesService, MessageService, ConfirmationService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
     bootstrap: [AppComponent]

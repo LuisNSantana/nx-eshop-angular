@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { User } from '../models/user';
 
 import * as countriesLib from 'i18n-iso-countries';
+import { UsersFacade } from '../state/users.facade';
 
 declare const require;
 
@@ -14,7 +15,7 @@ declare const require;
 export class UsersService {
     apiURLUsers = environment.apiURL + 'users';
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private usersFacade: UsersFacade) {
 
         countriesLib.registerLocale(require('i18n-iso-countries/langs/en.json'));   
      }
@@ -37,7 +38,6 @@ export class UsersService {
     //se anade un objeto a un array con object.entries
     getCountries(): { id: string; name: string }[] {
         return Object.entries(countriesLib.getNames('en', { select: 'official' })).map((entry) => {
-            console.log(entry);
             return {
                 id: entry[0],
                 name: entry[1],
@@ -59,6 +59,19 @@ export class UsersService {
     getTotalUsers(): Observable<number> {
 
         return this.http.get<number>(`${this.apiURLUsers}/get/count`);
+    }
+
+    initAppSession() {
+           // this.setUser(JSON.parse(user));
+           this.usersFacade.buildUserSession();
+        
+    }
+
+    observerCurrentUser() {
+        return this.usersFacade.currentUser$;
+    }
+    isCurrentUserAuth() {
+        return this.usersFacade.isAuthenticated$;
     }
    
    
