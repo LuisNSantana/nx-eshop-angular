@@ -5,7 +5,6 @@ import { UsersService } from '@belctech/users';
 import { OrderItem } from '../../models/order-item';
 import { CartService, OrdersService, Order } from '@belctech/orders';
 import { takeUntil, Subject } from 'rxjs';
-
 @Component({
   selector: 'orders-checkout-page',
   templateUrl: './checkout-page.component.html'
@@ -18,7 +17,8 @@ export class CheckoutPageComponent implements OnInit, OnDestroy {
     private usersService: UsersService,
     private formBuilder: FormBuilder,
     private cartService: CartService,
-    private orderService: OrdersService
+    private orderService: OrdersService,
+    
   ) {}
   checkoutFormGroup: FormGroup;
   isSubmitted = false;
@@ -100,6 +100,8 @@ export class CheckoutPageComponent implements OnInit, OnDestroy {
     if (this.checkoutFormGroup.invalid) {
       return;
     }
+
+  
     const order:Order = {
       orderItems: this.orderItems,
       shippingAddress1: this.checkoutForm['street'].value,
@@ -112,16 +114,16 @@ export class CheckoutPageComponent implements OnInit, OnDestroy {
       user: this.userId,
       dateOrdered: `${Date.now()}`
     };  
-    this.orderService.createOrder(order).subscribe({
-      next: () => {
-        this.cartService.emptyCart();
-        this.router.navigate(['/success']);
-      },
-      error: (error: any) => {
-        console.error('Error creating order: ', error);
-        // Handle the error here
+
+    this.orderService.cacheOrderData(order);
+
+    this.orderService.createCheckOutSession(this.orderItems).subscribe((error) => {
+      if (error) {
+        console.log('Error: ', error);
       }
+   
     });
+   
 
   }
 

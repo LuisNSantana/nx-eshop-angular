@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { appRoutes } from './app.routes';
-import { NxWelcomeComponent } from './nx-welcome.component';
+
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ShellComponent } from './shared/shell/shell.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
@@ -46,6 +46,9 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
+//stripe
+import { NgxStripeModule } from 'ngx-stripe';
+
 const UX_MODULE = [
     CardModule,
     ToolbarModule,
@@ -71,7 +74,6 @@ const UX_MODULE = [
 @NgModule({
     declarations: [
         AppComponent,
-        NxWelcomeComponent,
         DashboardComponent,
         ShellComponent,
         SidebarComponent,
@@ -95,6 +97,7 @@ const UX_MODULE = [
         UsersModule,
         StoreModule.forRoot({}),
         EffectsModule.forRoot([]),
+        NgxStripeModule.forRoot('pk_test_51NZreOFLHvHQ6QtbjpU8b7yq6L3iWFHCYGYU3d8TVZeyxq6retcwT6RpvJmDfwb3Nj26vaEaBNY98dvtomKzxDBY00F9CDJluf'),
     ],
     providers: [CategoriesService, MessageService, ConfirmationService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
     bootstrap: [AppComponent]

@@ -17,6 +17,7 @@ import { OrdersModule } from '@belctech/orders';
 import { JwtInterceptor, UsersModule } from '@belctech/users';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { NgxStripeModule } from 'ngx-stripe';
 
 @NgModule({
     declarations: [AppComponent, HomePageComponent, ProductListComponent, HeaderComponent, FooterComponent, NavComponent],
@@ -29,6 +30,7 @@ import { EffectsModule } from '@ngrx/effects';
     OrdersModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
+    NgxStripeModule.forRoot('pk_test_51NZreOFLHvHQ6QtbjpU8b7yq6L3iWFHCYGYU3d8TVZeyxq6retcwT6RpvJmDfwb3Nj26vaEaBNY98dvtomKzxDBY00F9CDJluf'),
     UsersModule],
     providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
     bootstrap: [AppComponent]

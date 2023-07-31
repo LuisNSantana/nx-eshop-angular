@@ -21,13 +21,17 @@
            
           }
         ]
+        
       
       }
     },
     {
       "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:@nrwl/nx/typescript"],
-      "rules": {}
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-empty-function": "off"
+      }
     },
     {
       "files": ["*.js", "*.jsx"],
