@@ -52,11 +52,11 @@ export class CartPageComponent implements OnInit, OnDestroy {
 
     updateCartItemQuantity(event, cartItem: CartItemDetailed) {
         this.cartService.setCartItem(
-            {
-                productId: cartItem.product.id,
-                quantity: event.value
-            },
-            true
+          {
+            productId: cartItem.product.id,
+            quantity: event.value
+          },
+          true
         );
-    }
+      }
 }

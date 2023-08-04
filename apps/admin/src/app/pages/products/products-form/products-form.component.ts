@@ -17,6 +17,11 @@ export class ProductsFormComponent implements OnInit {
     selectedState: any = null;
     imageDisplay: string | ArrayBuffer;
     currentProductId: string;
+    gallery = [];
+    selectedImageUrl = '';
+    responsiveOptions: any[];
+    displayBasic: boolean;
+    discountPrice: number;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -31,6 +36,8 @@ export class ProductsFormComponent implements OnInit {
         this._getCategories();
         this._initForm();
         this._checkEditMode();
+        this._imagesGallery();
+        
     }
 
     private _initForm() {
@@ -38,12 +45,14 @@ export class ProductsFormComponent implements OnInit {
             name: ['', Validators.required],
             brand: ['', Validators.required],
             image: ['', Validators.required],
+            images: [''],
             price: ['', Validators.required],
             category: ['', Validators.required],
             countInStock: ['', Validators.required],
             description: ['', Validators.required],
             richDescription: [''],
-            isFeatured: [false]
+            isFeatured: [false],
+            discountValue: ['']
         });
     }
 
@@ -55,7 +64,6 @@ export class ProductsFormComponent implements OnInit {
     }
 
     private _addProduct(productData: FormData) {
-        console.log('que manda productData: ', productData);
         this.productsService.createProduct(productData).subscribe({
             next: (product) => this.messageService.add({ severity: 'success', summary: 'Success', detail: `Product ${product.name} is created` }),
             error: () => this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Product could not be created' }),
@@ -64,14 +72,28 @@ export class ProductsFormComponent implements OnInit {
     }
 
     private _updateProduct(productData: FormData) {
-        console.log('que id: ', this.currentProductId);
-        //console.log('que manda productData: ', productData);
+        const discountValue = this.productForm['discountValue'].value;
+        let calcDiscount = 0;
+        if (discountValue > 0) {
+            calcDiscount = (this.productForm['price'].value * discountValue) / 100;
+        }
+        const originalPrice = this.productForm['price'].value;
+        const finalPrice = originalPrice - calcDiscount;
+    
+        productData.set('price', finalPrice.toString());
+        productData.set('discountProduct', originalPrice.toString());
+
+    
         this.productsService.updateProduct(productData, this.currentProductId).subscribe({
-            next: (product) => this.messageService.add({ severity: 'success', summary: 'Success', detail: `Product ${product.name} is updated` }),
+            next: (product) => {
+                this.messageService.add({ severity: 'success', summary: 'Success', detail: `Product ${product.name} is updated` });
+                this.productForm['price'].setValue(finalPrice);
+            },
             error: () => this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Product could not be updated' }),
             complete: () => setTimeout(() => this.router.navigate(['/products']), 1500)
         });
     }
+    
 
     private _checkEditMode() {
         this.route.params.subscribe((params) => {
@@ -82,6 +104,7 @@ export class ProductsFormComponent implements OnInit {
                     this.productForm['name'].setValue(product['name']);
                     this.productForm['category'].setValue(product['category'].id);
                     this.productForm['brand'].setValue(product['brand']);
+                  
                     this.productForm['price'].setValue(product['price']);
                     this.productForm['countInStock'].setValue(product['countInStock']);
                     this.productForm['isFeatured'].setValue(product['isFeatured']);
@@ -89,8 +112,10 @@ export class ProductsFormComponent implements OnInit {
                     this.productForm['richDescription'].setValue(product['richDescription']);
                     this.imageDisplay = product['image'];
                     this.productForm['image'].setValidators([]);
+                    this.productForm['images'].setValidators([]);
                     //para poder actualizar el producto, sin tener que andir imagen
                     this.productForm['image'].updateValueAndValidity();
+                    this.productForm['images'].updateValueAndValidity();
                 });
             }
         });
@@ -106,7 +131,6 @@ export class ProductsFormComponent implements OnInit {
             productFormData.append(key, this.productForm[key].value);
         });
         if (this.editMode) {
-            console.log('pasa aqui');
             this._updateProduct(productFormData);
         } else {
             this._addProduct(productFormData);
@@ -131,6 +155,47 @@ export class ProductsFormComponent implements OnInit {
             fileReader.readAsDataURL(file);
         }
     }
+
+    onGalleryImageUpload(event) {
+        const images = new FormData();
+        this.form.get('images').updateValueAndValidity();
+        // Agrega cada archivo al objeto FormData
+        for (const file of event.files) {
+            images.append('images', file, file.name);
+        }
+        this.productsService.updateProductGallery(images, this.currentProductId).subscribe({
+            next: (product) => this.messageService.add({ severity: 'success', summary: 'Success', detail: `Product ${product.name} is updated` }),
+            error: () => this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Product could not be updated' })
+        });
+    }
+
+    changeSelectedImage(item: string) {
+        this.selectedImageUrl = item;
+    }
+
+    private _imagesGallery() {
+        this.productsService.getProduct(this.currentProductId).subscribe((product) => {
+            this.gallery = product.images;
+            this.selectedImageUrl = this.gallery[0];
+        });
+        this.responsiveOptions = [
+            {
+                breakpoint: '1024px',
+                numVisible: 5
+            },
+            {
+                breakpoint: '768px',
+                numVisible: 3
+            },
+            {
+                breakpoint: '560px',
+                numVisible: 1
+            }
+        ];
+    }
+
+ 
+
     get productForm() {
         return this.form.controls;
     }

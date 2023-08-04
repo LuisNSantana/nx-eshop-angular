@@ -1,4 +1,4 @@
-<div class="gallery">
+<div class="gallery" *ngIf="hasImages">
     <div class="main-image">
         <img [src]="selectedImageUrl" alt="images" />
     </div>
@@ -13,3 +13,6 @@
         </ul>
     </div>
 </div>
+
+
+

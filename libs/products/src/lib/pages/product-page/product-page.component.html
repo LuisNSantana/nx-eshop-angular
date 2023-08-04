@@ -1,7 +1,7 @@
 <div class="product-page" *ngIf="product">
     <div class="grid">
         <div class="col-6">
-            <ui-gallery [images]="product.images"></ui-gallery>
+            <ui-gallery [images]="product.images ?? product.image"></ui-gallery>
         </div>
         <div class="col-6 product">
             <h2 class="product-name">{{ product.name }}</h2>
@@ -13,7 +13,7 @@
             </div>
             <div class="product-price">
                 {{ product.price | currency : 'USD' : true : '1.2-2' }}
-                <span class="price-before">{{ product.price + 18 | currency : 'USD' : true : '1.2-2' }}</span>
+                <span class="price-before" *ngIf="product.discountProduct > 0">{{ product.discountProduct | currency : 'USD' : true : '1.2-2' }}</span>
             </div>
             <div class="product-quantity">
                 <div class="field col-12 md-3 p-0">

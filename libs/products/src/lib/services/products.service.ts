@@ -10,7 +10,7 @@ import { Product } from '../models/product';
 })
 export class ProductsService {
     apiURLProducts = environment.apiURL + 'products';
-    apiURLGalleryImage = environment.apiURL + 'gallery-images';
+    apiURLGalleryImage = environment.apiURL + 'products/gallery-images';
 
     constructor(private http: HttpClient) {}
 
@@ -36,7 +36,7 @@ export class ProductsService {
     }
 
     updateProductGallery(images: FormData, productid: string): Observable<Product> {
-        console.log('desde el servicio product', images);
+
         return this.http.put<Product>(`${this.apiURLGalleryImage}/${productid}`, images);
     }
 

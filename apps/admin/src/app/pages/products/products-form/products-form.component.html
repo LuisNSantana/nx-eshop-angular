@@ -14,7 +14,7 @@
         </div>
 
         <div class="grid">
-            <div class="col-12">
+            <div class="col-14">
                 <form [formGroup]="form">
                     <div class="fluid formgrid grid">
                         <div class="field col">
@@ -43,9 +43,14 @@
                             <p-inputNumber formControlName="price" mode="decimal" inputId="price" [useGrouping]="false"></p-inputNumber>
                             <small *ngIf="productForm['price'].invalid && isSubmitted" class="p-error">Price is required</small>
                         </div>
+                        <div class="field col">
+                            <label for="price">Discount <b>%</b></label><br />
+                            <p-inputNumber formControlName="discountValue" mode="decimal" inputId="discountValue" [useGrouping]="false"></p-inputNumber>
+                            
+                        </div>
                     </div>
 
-                    <div class="formgrid grid">
+                    <div class="fluid formgrid grid">
                         <div class="field col-4">
                             <label for="countInStock">CountInStock</label><br />
                             <p-inputNumber formControlName="countInStock" mode="decimal" inputId="countInStock" [useGrouping]="false"></p-inputNumber>
@@ -78,14 +83,55 @@
                             <label for="richDescription">Product Details</label><br />
                             <p-editor formControlName="richDescription" [style]="{ height: '320px' }"></p-editor>
                         </div>
-                        <div class="field col-12">
+                        <div class="field col-5">
                             <label for="name">Main Image</label><br />
                             <input type="file" accept="image/*" class="p-inputtext" (change)="onImageUpload($event)" />
                             <div class="col-2 mt-2 pl-0">
                                 <img style="width: 100%" [src]="imageDisplay" alt="" />
+                               
                             </div>
-                            <small *ngIf="productForm['image'].invalid && isSubmitted" class="p-error">Image is required </small>
+                            <small *ngIf="productForm['image'].invalid && isSubmitted" class="p-error">Image is required </small>       
                         </div>
+
+                        <div class="field col-4">
+                            <label for="multiple"> Multiple images</label><br/>
+                            <p-fileUpload  
+                             multiple="multiple" 
+                             accept="image/*" 
+                             customUpload="true"
+                             maxFileSize="1000000"
+                             fileLimit="10"
+                             invalidFileSizeMessageSummary="El tamaño del archivo es inválido, "
+                             invalidFileSizeMessageDetail="el tamaño máximo permitido es {0}."
+                             invalidFileTypeMessageSummary="El tipo de archivo es inválido, "
+                             invalidFileTypeMessageDetail="los tipos de archivo permitidos son: {0}."
+                             (uploadHandler)="onGalleryImageUpload($event)"
+
+                              ></p-fileUpload>                  
+                        </div>
+
+                        <div class="field col-3">
+                            <label for="multiple"> Gallery</label><br/>
+                            <div class="card flex justify-content-center">
+                                <button pButton type="button" icon="pi pi-external-link" label="Gallery" (click)="displayBasic = true"></button>
+                                <p-galleria 
+                                [(value)]="gallery" 
+                                [(visible)]="displayBasic"
+                                [responsiveOptions]="responsiveOptions" 
+                                [containerStyle]="{'max-width': '50%'}" 
+                                [numVisible]="9"
+                                [circular]="true"
+                                [fullScreen]="true" 
+                                [showThumbnails]="false"
+                                [showItemNavigators]="true">
+                                    <ng-template pTemplate="item" let-item (click)="changeSelectedImage(item)">
+                                        <img [src]="item" style="width: 100%; display: block;"/>
+                                    </ng-template>
+                                </p-galleria>
+                            </div>
+                        </div>
+
+                       
                     </div>
                 </form>
             </div>

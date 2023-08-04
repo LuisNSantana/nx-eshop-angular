@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../models/product';
-import { Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { CartService } from '@belctech/orders';
 
 @Component({
@@ -13,6 +13,9 @@ export class ProductPageComponent implements OnInit, OnDestroy {
     product: Product;
     endSubs$: Subject<any> = new Subject();
     quantity = 1;
+    originalPrice$: Observable<number>;
+    discountedPrice$: Observable<number>;
+    originalPrice: number;
     constructor(private productService: ProductsService, private route: ActivatedRoute, private cartService: CartService) {}
 
     ngOnInit(): void {
@@ -23,12 +26,12 @@ export class ProductPageComponent implements OnInit, OnDestroy {
         this.route.params.subscribe((params) => {
             if (params['productid']) {
                 this._getProduct(params['productid']);
+                
             }
         });
     }
     ngOnDestroy(): void {
         this.endSubs$.complete();
-        console.log('destroy');
     }
 
     private _getProduct(id: string) {
@@ -38,8 +41,12 @@ export class ProductPageComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this.endSubs$))
             .subscribe((product) => {
                 this.product = product;
+                this.originalPrice = product.discountProduct;
             });
     }
+
+   
+
     addProductToCart() {
         const cartItem = {
             productId: this.product.id,

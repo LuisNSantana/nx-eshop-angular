@@ -15,5 +15,6 @@ export class Product{
     numReviews?: number;
     isFeatured?: boolean;
     dateCreated?:string;
+    discountProduct?:number;
 
 }

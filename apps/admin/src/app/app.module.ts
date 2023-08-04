@@ -46,6 +46,8 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
+import { GalleriaModule } from 'primeng/galleria';
+
 //stripe
 import { NgxStripeModule } from 'ngx-stripe';
 
@@ -68,7 +70,9 @@ const UX_MODULE = [
     RatingModule,
     FieldsetModule,
     UsersModule,
-    FileUploadModule
+    FileUploadModule,
+    GalleriaModule
+    
 ];
 
 @NgModule({

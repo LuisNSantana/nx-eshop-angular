@@ -7,8 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class GalleryComponent implements OnInit {
     sizeImagesExample = 'https://via.placeholder.com/500x500';
-    selectedImageUrl: string;
-    @Input() images: string[];
+    selectedImageUrl = '';
+    @Input() images: string[] = [];
 
     ngOnInit(): void {
         if (this.hasImages) {
